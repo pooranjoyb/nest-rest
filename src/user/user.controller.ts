@@ -1,7 +1,8 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards, Body, Patch } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtGuard } from 'src/auth/guard';
 import { UserService } from './user.service';
+import { UserDto } from './dto';
 
 @Controller('users')
 export class UserController {
@@ -10,12 +11,12 @@ export class UserController {
   @UseGuards(JwtGuard)
   @Get('me')
   getMe(@Req() req: Request) {
-    return req.user;
+    return this.userService.getMe(req);
   }
 
   @UseGuards(JwtGuard)
-  @Get('expense')
-  getExpense() {
-    return this.userService.getExpense();
+  @Patch('me/update')
+  updateMe(@Body() dto: UserDto) {
+    return this.userService.updateMe(dto);
   }
 }
