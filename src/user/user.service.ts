@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { Req } from '@nestjs/common';
 import { Request } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserDto } from './dto';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class UserService {
@@ -13,11 +14,25 @@ export class UserService {
   }
 
   async updateMe(dto: UserDto) {
-    return this.prisma.user.update({
-      where: { email: dto.email },
-      data: {
-        ...dto,
-      },
-    });
+    try {
+      return this.prisma.user.update({
+        where: { email: dto.email },
+        data: {
+          ...dto,
+        },
+        select: {
+          id: true,
+          email: true,
+          createdAt: true,
+          updatedAt: true,
+          firstName: true,
+          lastName: true,
+        },
+      });
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new ForbiddenException('User Not Found');
+      }
+    }
   }
 }
