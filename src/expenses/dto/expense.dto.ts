@@ -12,8 +12,4 @@ export class ExpenseDto {
   @IsString()
   @IsOptional()
   description: string;
-
-  @IsNumber()
-  @IsNotEmpty()
-  userId: number;
 }

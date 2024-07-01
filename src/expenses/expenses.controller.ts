@@ -17,7 +17,8 @@ export class ExpensesController {
 
   @UseGuards(JwtGuard)
   @Post('add-expense')
-  addExpense(@Body() dto: ExpenseDto) {
-    return this.expensesService.addExpense(dto);
+  addExpense(@Request() req: any, @Body() dto: ExpenseDto) {
+    const userId = req.user.id;
+    return this.expensesService.addExpense(userId, dto);
   }
 }

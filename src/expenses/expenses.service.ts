@@ -29,7 +29,7 @@ export class ExpensesService {
     }
   }
 
-  async addExpense(dto: ExpenseDto) {
+  async addExpense(userId: number, dto: ExpenseDto) {
     try {
       const userExpense = await this.prisma.expense.create({
         data: {
@@ -38,7 +38,7 @@ export class ExpensesService {
           description: dto.description,
           user: {
             connect: {
-              id: dto.userId,
+              id: userId,
             },
           },
         },
