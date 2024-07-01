@@ -35,7 +35,7 @@ model Expense {
   updatedAt DateTime @updatedAt
 
   exp_name    String
-  exp_amt     String
+  exp_amt     Int
   description String?
 
   userId Int
