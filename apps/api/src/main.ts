@@ -10,6 +10,8 @@ async function bootstrap() {
       // this will make sure that extra params are not sent here
     }),
   );
+  app.setGlobalPrefix('/api');
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

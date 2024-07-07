@@ -13,10 +13,10 @@ export class UserService {
     return req.user;
   }
 
-  async updateMe(dto: UserDto) {
+  async updateMe(userId, dto: UserDto) {
     try {
       return await this.prisma.user.update({
-        where: { email: dto.email },
+        where: { id: userId },
         data: {
           ...dto,
         },

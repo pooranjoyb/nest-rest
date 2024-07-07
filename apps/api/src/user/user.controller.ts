@@ -16,7 +16,8 @@ export class UserController {
 
   @UseGuards(JwtGuard)
   @Patch('me/update')
-  updateMe(@Body() dto: UserDto) {
-    return this.userService.updateMe(dto);
+  updateMe(@Req() req: any, @Body() dto: UserDto) {
+    const userId = req.user.id;
+    return this.userService.updateMe(userId, dto);
   }
 }
