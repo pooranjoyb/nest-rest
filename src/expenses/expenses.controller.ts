@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Request, Patch } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { JwtGuard } from 'src/auth/guard';
 import { UseGuards } from '@nestjs/common';
@@ -20,5 +20,17 @@ export class ExpensesController {
   addExpense(@Request() req: any, @Body() dto: ExpenseDto) {
     const userId = req.user.id;
     return this.expensesService.addExpense(userId, dto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Patch('update-expense')
+  updateExpense(@Body() dto: ExpenseDto) {
+    return this.expensesService.updateExpense(dto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Post('delete-expense')
+  deleteExpense(@Body('exp_name') exp_name: string) {
+    return this.expensesService.deleteExpense(exp_name);
   }
 }

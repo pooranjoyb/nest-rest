@@ -1,7 +1,12 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ExpenseDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ExpensesService {
@@ -43,18 +48,71 @@ export class ExpensesService {
           },
         },
       });
-      return userExpense;
+      return {
+        message: 'Expense Created Successfully',
+        userExpense,
+      };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         // error code for duplicate
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Credentials taken');
+          throw new ForbiddenException('Expense with this name already Exists');
         }
       }
       throw error;
     }
   }
 
-  updateExpense() {}
-  deleteExpense() {}
+  async updateExpense(dto: ExpenseDto) {
+    try {
+      const data = await this.prisma.expense.update({
+        where: { exp_name: dto.exp_name },
+        data: {
+          ...dto,
+          updatedAt: new Date(),
+        },
+        select: {
+          id: true,
+          createdAt: true,
+          updatedAt: true,
+          exp_name: true,
+          exp_amt: true,
+          description: true,
+        },
+      });
+
+      return {
+        message: 'Expense Updated Successfully',
+        data,
+      };
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException('Expense Not Found');
+        }
+      }
+      throw new NotFoundException('Expense Not Found');
+    }
+  }
+
+  async deleteExpense(exp_name: string) {
+    try {
+      const data = await this.prisma.expense.delete({
+        where: { exp_name: exp_name },
+      });
+
+      return {
+        message: 'Expense Deleted Successfully',
+        data,
+      };
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException('Expense Not Found');
+        }
+      }
+      throw new NotFoundException('Expense Not Found');
+    }
+  }
 }
