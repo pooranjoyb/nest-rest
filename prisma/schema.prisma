@@ -34,7 +34,7 @@ model Expense {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  exp_name    String
+  exp_name    String @unique
   exp_amt     Int
   description String?
 
