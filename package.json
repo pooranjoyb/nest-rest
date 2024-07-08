@@ -6,7 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "docker": "cd apps/api && npm run db:dev:restart",
+    "psql:docker": "cd apps/api && npm run db:dev:restart",
+    "prisma:client": "cd apps/api && npx prisma generate",
     "prisma:studio": "cd apps/api && npx prisma studio"
   },
   "devDependencies": {
