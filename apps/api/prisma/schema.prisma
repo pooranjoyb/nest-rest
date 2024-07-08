@@ -8,9 +8,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// url      = env("DATABASE_URL")
+
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:123@localhost:5434/nest"
 }
 
 model User {
@@ -34,7 +36,7 @@ model Expense {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  exp_name    String @unique
+  exp_name    String  @unique
   exp_amt     Int
   description String?
 
