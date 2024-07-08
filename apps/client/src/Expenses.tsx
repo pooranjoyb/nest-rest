@@ -33,7 +33,17 @@ function Expenses() {
   }
 
   return (
-    <div className="w-full mx-auto mt-8">
+    <div className="w-full mx-auto mt-2">
+      <div className="flex w-full py-3 gap-2">
+        <div className="p-4 w-full bg-yellow-100 rounded-xl text-gray-800">
+          <div className="font-bold text-2xl leading-none w-full">{exps.length}</div>
+          <div className="mt-2">Expenses</div>
+        </div>
+        <div className="p-4 w-full bg-yellow-100 rounded-xl text-gray-800">
+          <div className="font-bold text-2xl leading-none w-full">5,5</div>
+          <div className="mt-2">Tracked hours</div>
+        </div>
+      </div>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
         <div className="block w-full overflow-x-auto rounded-xl">
           <table className="items-center bg-transparent w-full border-collapse">

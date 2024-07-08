@@ -5,6 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./Dashboard.tsx";
 import Expenses from "./Expenses.tsx";
+import AddExpense from "./Forms/AddExpense.tsx";
 
 export const base_url = "http://localhost:3000/api";
 
@@ -18,10 +19,14 @@ const MyApp = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: 'expenses',
-        element: <Expenses />
-      }
-    ]
+        path: "expenses",
+        element: <Expenses />,
+      },
+      {
+        path: "add-expense",
+        element: <AddExpense />,
+      },
+    ],
   },
 ]);
 
