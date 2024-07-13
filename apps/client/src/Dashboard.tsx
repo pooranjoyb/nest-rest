@@ -43,18 +43,18 @@ function Dashboard() {
 
   function formatDate(isoString: string): string {
     const date = new Date(isoString);
-    
+
     const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
       hour12: true,
     };
-  
-    return date.toLocaleString('en-US', options);
+
+    return date.toLocaleString("en-US", options);
   }
 
   if (!user) {
@@ -76,6 +76,7 @@ function Dashboard() {
                 <span className="text-yellow-700">Nest</span> App
               </h1>
             </div>
+            {/* Side bar  */}
             <div className="p-4">
               <ul className="space-y-1">
                 <li>
@@ -133,8 +134,8 @@ function Dashboard() {
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href=""
+                  <Link
+                    to="delete-expense"
                     className="flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
                   >
                     <svg
@@ -148,7 +149,7 @@ function Dashboard() {
                       <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z" />
                     </svg>
                     Delete Expense
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -206,16 +207,13 @@ function Dashboard() {
                     <div className="col-span-2">
                       <div className="p-4 bg-yellow-100 rounded-xl">
                         <div className="font-bold text-lg text-gray-800 leading-none">
-                          Email : {" "}
-                          {user.email}
+                          Email : {user.email}
                         </div>
                         <div className="font-semibold text-lg pt-2 text-gray-800 leading-none">
-                          Account Created At : {" "}
-                          {formatDate(user.createdAt)}
+                          Account Created At : {formatDate(user.createdAt)}
                         </div>
                         <div className="font-semibold text-lg pt-2 text-gray-800 leading-none">
-                          Last Updated At : {" "}
-                          {formatDate(user.updatedAt)}
+                          Last Updated At : {formatDate(user.updatedAt)}
                         </div>
                       </div>
                     </div>

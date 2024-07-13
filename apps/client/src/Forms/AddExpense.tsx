@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { base_url } from "../main";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AddExpense() {
   const [exp_name, setExp_name] = useState("");
@@ -23,9 +25,15 @@ function AddExpense() {
           },
         }
       );
+      
+      if (res.data.message === "Expense with this name already Exists") {
+        toast.error("Expense already exists!");
+        return;
+      }
 
-      console.log(res);
+      toast.success("Expense Added!");
     } catch (error) {
+      toast.error("Failed to add expense");
       console.error("Error submitting expense:", error);
     }
   };
@@ -93,6 +101,7 @@ function AddExpense() {
           Submit
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

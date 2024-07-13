@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./Dashboard.tsx";
 import Expenses from "./Expenses.tsx";
 import AddExpense from "./Forms/AddExpense.tsx";
+import DeleteExpense from "./Forms/DeleteExpense.tsx";
 
 export const base_url = "http://localhost:3000/api";
 
@@ -25,6 +26,10 @@ const MyApp = createBrowserRouter([
       {
         path: "add-expense",
         element: <AddExpense />,
+      },
+      {
+        path: "delete-expense",
+        element: <DeleteExpense />,
       },
     ],
   },
